@@ -4,7 +4,7 @@ node_modules/
 # Environment variables
 .env
 
-# Build directories
+# Build directories -- for frontend build files
 build/
 dist/
 
