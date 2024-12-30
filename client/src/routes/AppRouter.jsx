@@ -8,10 +8,12 @@ import PageNotFound from "../pages/PageNotFound";
 import PostDetail from "../pages/PostDetail";
 import PostEditor from "../pages/PostEditor";
 import SignupPage from "../pages/SignupPage";
+import Header from "../components/Header";
 
 const AppRouter = () => {
   return (
     <BrowserRouter>
+      <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<About />} />
