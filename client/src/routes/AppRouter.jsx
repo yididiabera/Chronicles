@@ -9,6 +9,9 @@ import PostDetail from "../pages/PostDetail";
 import PostEditor from "../pages/PostEditor";
 import SignupPage from "../pages/SignupPage";
 import Header from "../components/Header";
+import Footer from "../components/Footer"
+//import { Footer } from "flowbite-react";
+
 
 const AppRouter = () => {
   return (
@@ -24,6 +27,7 @@ const AppRouter = () => {
         <Route path="/signup" element={<SignupPage />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
+      <Footer/>
     </BrowserRouter>
   );
 };
