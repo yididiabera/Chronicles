@@ -42,7 +42,7 @@ export default function SignUp() {
       }
 
       setLoading(false);
-      navigate('/sign-in');
+      navigate('/login');
     } catch (error) {
       console.error('Error during signup:', error);
       setErrorMessage('Server error. Please try again later.');
