@@ -70,7 +70,7 @@ export const updatePostById = async (req, res, next) => {
     }
 }
 
-const deleteById = async(req, res, next) {
+export const deleteById = async(req, res, next) => {
     try {
         const {id} = req.params;
 
@@ -81,7 +81,7 @@ const deleteById = async(req, res, next) {
         }
         res.status(200).json({message :"Post deleted successfully."}) 
     }
-    catch(error) [
+    catch(error) {
         next(error)
-    ]
+    }
 }
