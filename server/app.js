@@ -2,6 +2,7 @@ import express from "express"
 import dotenv from "dotenv"
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js"
+import postRoutes from "./routes/postRoutes.js"
 
 // Load environment variables
 dotenv.config();
@@ -20,7 +21,10 @@ app.get("/", (req, res) => res.send("API is running..."));
 // Authentication routes
 app.use("/api/auth", authRoutes);
 
-// Error-handling middleware
+//post routes
+app.use('/api/posts',postRoutes);
+
+// Centralized Error-handling middleware
 app.use((err, req, res, next) => {
   const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
   res.status(statusCode).json({
