@@ -3,6 +3,10 @@ import {
 createPost, getPosts, getPostById, updatePostById, deleteById
 } from "../controllers/postController.js"
 import { verifyToken } from "../middleware/authMiddleware.js";
+import multer from "multer"
+
+// Multer setup for file uploads
+const upload = multer({ dest: 'uploads/'}) 
 
 const router = express.Router()
 
