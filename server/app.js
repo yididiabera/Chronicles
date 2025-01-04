@@ -17,7 +17,7 @@ const app = express();
 
 //adding CORS header
 app.use(cors({
-    origin: "http://localhost:3002/",
+    origin: "http://localhost:3001",
     credentials: true,
 }))
 // Middleware to parse JSON
