@@ -5,30 +5,27 @@ import { BsFacebook, BsInstagram, BsTwitter, BsGithub, BsTelegram } from 'react-
 export default function FooterCom() {
   return (
     <Footer container className="bg-gradient-to-r from-indigo-50 to-purple-200 dark:from-gray-800 dark:to-gray-900 text-gray-700 dark:text-gray-300 border-t-4 border-purple-900">
-      <div className="w-full max-w-7xl mx-auto py-4">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-8">
+      <div className="w-full max-w-7xl mx-auto py-2">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-2">
           {/* Branding */}
           <div className="text-center md:text-left">
             <Link
               to="/"
-              className="flex items-center text-2xl font-extrabold text-purple-600 dark:text-teal-400"
+              className="flex items-center text-lg font-bold text-purple-600 dark:text-teal-400"
             >
-              <span className="px-3 py-2 bg-gradient-to-r from-purple-950 via-pink-500 to-purple-500 text-white rounded-md shadow-lg">
+              <span className="px-2 py-1 bg-gradient-to-r from-purple-950 via-pink-500 to-purple-500 text-white rounded-md shadow-lg">
                 Chronicles
               </span>
             </Link>
-            <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-            Discover a world of insights and inspiration <br/> 
-            through our engaging blog posts.<br />
-             We share knowledge, spark ideas, and foster <br />
-             a community of curious minds eager to learn and grow together.
+            <p className="mt-1 text-xs text-gray-600 dark:text-gray-400">
+              Discover insights and inspiration through our engaging blog posts.
             </p>
           </div>
 
           {/* Navigation Links */}
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
             <div>
-              <Footer.Title title="About" className="text-lg text-gray-900 dark:text-white font-semibold" />
+              <Footer.Title title="About" className="text-xs text-gray-900 dark:text-white font-semibold" />
               <Footer.LinkGroup col>
                 <Footer.Link
                   href="https://www.linkedin.com/in/yididia-abera-a78276266/"
@@ -36,7 +33,7 @@ export default function FooterCom() {
                   rel="noopener noreferrer"
                   className="hover:text-purple-500 dark:hover:text-purple-400"
                 >
-                 Linkedin 
+                  Linkedin
                 </Footer.Link>
                 <Footer.Link
                   href="/about"
@@ -49,7 +46,7 @@ export default function FooterCom() {
               </Footer.LinkGroup>
             </div>
             <div>
-              <Footer.Title title="Follow Us" className="text-lg text-gray-900 dark:text-white font-semibold" />
+              <Footer.Title title="Follow Us" className="text-xs text-gray-900 dark:text-white font-semibold" />
               <Footer.LinkGroup col>
                 <Footer.Link
                   href="https://github.com/yididiabera"
@@ -68,7 +65,7 @@ export default function FooterCom() {
               </Footer.LinkGroup>
             </div>
             <div>
-              <Footer.Title title="Legal" className="text-lg text-gray-900 dark:text-white font-semibold" />
+              <Footer.Title title="Legal" className="text-xs text-gray-900 dark:text-white font-semibold" />
               <Footer.LinkGroup col>
                 <Footer.Link
                   href="https://x.com/yididia_abera"
@@ -87,7 +84,7 @@ export default function FooterCom() {
           </div>
         </div>
 
-        <Footer.Divider className="my-6 border-pink-300 dark:border-gray-600" />
+        <Footer.Divider className="my-2 border-pink-300 dark:border-gray-600" />
 
         {/* Footer Bottom Section */}
         <div className="flex flex-col md:flex-row justify-between items-center">
@@ -96,10 +93,10 @@ export default function FooterCom() {
             href="#"
             by="Chronicles"
             year={new Date().getFullYear()}
-            className="text-sm text-purple-600 dark:text-gray-400"
+            className="text-xs text-purple-600 dark:text-gray-400"
           />
           {/* Social Icons */}
-          <div className="flex gap-6 mt-4 md:mt-0">
+          <div className="flex gap-2 mt-2 md:mt-0">
             <Footer.Icon
               href="#"
               icon={BsFacebook}
