@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Homepage = () => {
   const [posts, setPosts] = useState([]);
@@ -20,7 +21,7 @@ const Homepage = () => {
         }
 
         const data = await response.json();
-         console.log('Fetched data:', data); // Debugging
+        console.log('Fetched data:', data); // Debugging
         setPosts(data);
         setLoading(false);
       } catch (err) {
@@ -44,7 +45,11 @@ const Homepage = () => {
           <div key={post._id} className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
             <h2 className="text-2xl font-semibold text-blue-600">{post.title}</h2>
             <p className="text-gray-700 mt-2">{post.content.slice(0, 100)}...</p>
-            <a href={`/post/${post._id}`} className="text-blue-500 hover:underline mt-4 inline-block">Read more</a>
+          
+             {/* Link to PostDetail page */}
+            <Link to={`/post/${post._id}`} className="text-blue-500 hover:underline mt-4 inline-block">
+              Read more
+            </Link>
           </div>
         ))}
       </div>
