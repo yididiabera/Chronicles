@@ -3,6 +3,9 @@ import dotenv from "dotenv"
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js"
 import postRoutes from "./routes/postRoutes.js"
+import cookieParser from "cookie-parser";
+import cors from "cors"
+
 
 // Load environment variables
 dotenv.config();
@@ -12,9 +15,15 @@ connectDB();
 
 const app = express();
 
+//adding CORS header
+app.use(cors({
+    origin: "http://localhost:3002/",
+    credentials: true,
+}))
 // Middleware to parse JSON
 app.use(express.json());
 
+app.use(cookieParser())
 // Routes
 app.get("/", (req, res) => res.send("API is running..."));
 
