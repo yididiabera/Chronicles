@@ -13,14 +13,18 @@ const Homepage = () => {
           credentials: 'include', // Ensures cookies are sent with the request
         });
 
+        console.log('Response status:', response.status); // Debugging
+
         if (!response.ok) {
           throw new Error(`Error: ${response.status} - ${response.statusText}`);
         }
 
         const data = await response.json();
+         console.log('Fetched data:', data); // Debugging
         setPosts(data);
         setLoading(false);
       } catch (err) {
+        console.error('Fetch error:', err); // Debugging
         setError(err.message);
         setLoading(false);
       }
@@ -29,18 +33,18 @@ const Homepage = () => {
     fetchPosts();
   }, []);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (loading) return <p className="text-center text-gray-500">Loading...</p>;
+  if (error) return <p className="text-center text-red-500">Error: {error}</p>;
 
   return (
-    <div>
-      <h1>Homepage</h1>
-      <div className="posts-grid">
+    <div className="container mx-auto p-4">
+      <h1 className="text-4xl font-bold text-center mb-8">Homepage</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {posts.map((post) => (
-          <div key={post._id} className="post-card">
-            <h2>{post.title}</h2>
-            <p>{post.content.slice(0, 100)}...</p>
-            <a href={`/post/${post._id}`}>Read more</a>
+          <div key={post._id} className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
+            <h2 className="text-2xl font-semibold text-blue-600">{post.title}</h2>
+            <p className="text-gray-700 mt-2">{post.content.slice(0, 100)}...</p>
+            <a href={`/post/${post._id}`} className="text-blue-500 hover:underline mt-4 inline-block">Read more</a>
           </div>
         ))}
       </div>
