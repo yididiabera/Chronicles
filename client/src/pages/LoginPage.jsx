@@ -28,8 +28,9 @@ export default function Login() {
       setErrorMessage(null);
 
       console.log('Sending request to /api/auth/login:', formData);
-      const res = await fetch('/api/auth/login', { // Update to correct backend URL
+      const res = await fetch('http://localhost:5000/api/auth/login', { // Update to correct backend URL
         method: 'POST',
+        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
