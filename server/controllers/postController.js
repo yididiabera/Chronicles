@@ -1,6 +1,14 @@
 import Post from '../models/postModel.js'
+import multer from 'multer'
 
 export const createPost = async(req, res, next) => {
+    console.log("Request Body:", req.body);
+  console.log("Headers:", req.headers);
+  if (!req.user) {
+  return res.status(401).json({ message: "Unauthorized, user not found" });
+}
+
+
     try {
         const {title, content, tags, image} = req.body;
 
@@ -11,12 +19,14 @@ export const createPost = async(req, res, next) => {
         const newPost = new Post({
             title,
             content,
-            tags,
-            image,
+            tags: tags ? tags.split(',') : [],
+            //image: req.file?.path,
+            image: image ? image.path : null,
             author : req.user.id
         })
         
         const savedPost = await newPost.save();
+        console.log(savedPost)
         res.status(201).json(savedPost);
     }
     catch (error){ 
