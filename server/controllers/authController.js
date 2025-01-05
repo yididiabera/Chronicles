@@ -70,7 +70,7 @@ export const login = async (req, res, next) => {
     const token = jwt.sign(
       { id: user._id, isAdmin: user.isAdmin },
       process.env.JWT_SECRET,
-      { expiresIn: '1h' } // Token expiration
+      { expiresIn: '7d' } // Token expiration
     );
 
     // Exclude sensitive fields from the response
