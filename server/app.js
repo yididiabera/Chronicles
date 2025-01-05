@@ -35,6 +35,7 @@ app.use('/api/posts',postRoutes);
 
 // Centralized Error-handling middleware
 app.use((err, req, res, next) => {
+  console.error("Error stack:", err.stack);
   const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
   res.status(statusCode).json({
     message: err.message,
