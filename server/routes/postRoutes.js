@@ -1,19 +1,25 @@
 import express from "express";
+import multer from "multer";
 import {
-createPost, getPosts, getPostById, updatePostById, deleteById
-} from "../controllers/postController.js"
+  createPost,
+  getPosts,
+  getPostById,
+  updatePostById,
+  deleteById,
+} from "../controllers/postController.js";
 import { verifyToken } from "../middleware/authMiddleware.js";
-import multer from "multer"
+import protect from "../middleware/protect.js";
 
 // Multer setup for file uploads
-const upload = multer({ dest: 'uploads/'}) 
+const upload = multer({ dest: "uploads/" });
 
-const router = express.Router()
+const router = express.Router();
 
-router.post('/', verifyToken, createPost)
-router.get('/', getPosts)
-router.get('/:id', getPostById)
-router.put('/:id', verifyToken, updatePostById)
-router.delete('/:id', verifyToken, deleteById)
+// Routes
+router.post("/", verifyToken, protect, upload.single("image"), createPost); // Add upload middleware
+router.get("/", getPosts);
+router.get("/:id", getPostById);
+router.put("/:id", verifyToken, protect, upload.single("image"), updatePostById); // Optional: Allow updating image
+router.delete("/:id", verifyToken, protect, deleteById);
 
 export default router;
