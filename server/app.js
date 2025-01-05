@@ -4,6 +4,7 @@ import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js"
 import postRoutes from "./routes/postRoutes.js"
 import cookieParser from "cookie-parser";
+import protect from "./middleware/protect.js";
 import cors from "cors"
 
 
@@ -23,7 +24,7 @@ app.use(cors({
 // Middleware to parse JSON
 app.use(express.json());
 
-app.use(cookieParser())
+app.use(cookieParser())  // if we miss this req.cookies will always be undefined
 // Routes
 app.get("/", (req, res) => res.send("API is running..."));
 
