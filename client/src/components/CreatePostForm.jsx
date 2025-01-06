@@ -17,6 +17,8 @@ const CreatePostForm = () => {
     const formData = new FormData();
     formData.append('title', title);
     formData.append('content', content);
+    //formData.append('tags', tags.join(','));
+    //formData.append('image', selectedFile);
     if (image) {
       formData.append('image', image);
     }
