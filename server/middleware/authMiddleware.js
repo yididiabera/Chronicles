@@ -1,9 +1,16 @@
 import jwt from "jsonwebtoken";
 
 export const verifyToken = (req, res, next) => {
-  console.log(req.cookies); // Log the cookies to check if access_token is present
+  // Log cookies and headers for debugging
+  console.log("Cookies:", req.cookies);
+  console.log("Authorization Header:", req.headers.authorization);
 
-  const token = req.cookies.access_token;
+  // Get token from cookies or headers
+  const token =
+    req.cookies?.access_token || // Token in cookies
+    req.headers.authorization?.split(" ")[1]; // Token in Authorization header
+
+  console.log(`Access token: ${token}`);
 
   if (!token) {
     console.error("Access token is missing.");
@@ -12,9 +19,10 @@ export const verifyToken = (req, res, next) => {
     return next(error);
   }
 
+  // Verify the token
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
     if (err) {
-      if (err.name === 'TokenExpiredError') {
+      if (err.name === "TokenExpiredError") {
         console.error("Token expired:", err);
         const error = new Error("Token expired. Please log in again.");
         error.status = 401;
@@ -26,7 +34,8 @@ export const verifyToken = (req, res, next) => {
         return next(error);
       }
     }
-    req.user = user;
+
+    req.user = user; // Attach user to request
     next();
   });
 };
