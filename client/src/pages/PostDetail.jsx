@@ -58,6 +58,7 @@ const PostDetail = () => {
     try {
       let response = await fetch(`http://localhost:5000/api/posts/${id}`, {
         method: 'PUT',
+        credentials: 'include',
         headers: {
           'Authorization': `Bearer ${authToken}`,
           'Content-Type': 'application/json',
@@ -113,6 +114,7 @@ const PostDetail = () => {
     try {
       let response = await fetch(`http://localhost:5000/api/posts/${id}`, {
         method: 'DELETE',
+        credentials: 'include',
         headers: {
           'Authorization': `Bearer ${authToken}`,
         },
