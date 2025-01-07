@@ -16,6 +16,7 @@ connectDB();
 
 const app = express();
 
+app.use(cookieParser())  // if we miss this req.cookies will always be undefined
 //adding CORS header
 app.use(cors({
     origin: "http://localhost:3001",
@@ -24,7 +25,6 @@ app.use(cors({
 // Middleware to parse JSON
 app.use(express.json());
 
-app.use(cookieParser())  // if we miss this req.cookies will always be undefined
 // Routes
 app.get("/", (req, res) => res.send("API is running..."));
 
