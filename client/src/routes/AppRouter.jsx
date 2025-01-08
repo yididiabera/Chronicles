@@ -23,7 +23,7 @@ const AppRouter = () => {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/post/:id" element={<PostDetail />} />
-        <Route path="/post-editor" element={<PostEditor />} />
+        <Route path="/post-editor/:id" element={<PostEditor />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
