@@ -100,8 +100,16 @@ const PostDetail = () => {
             className="w-full h-auto mt-4"
           />
         )}
-        <p className="text-sm text-gray-500 mt-4">By: {post.authorName}</p>
-        <p className="text-sm text-gray-500">{post.publishedDate}</p>
+        {/* <p className="text-sm text-gray-500 mt-4">By: {post.authorName}</p>
+        <p className="text-sm text-gray-500">{post.publishedDate}</p> */}
+        <div className="mt-4">
+          <p className="text-sm text-gray-500">
+            <strong>Author:</strong> {post.authorName || "Unknown"} ({post.authorEmail || "N/A"})
+          </p>
+          <p className="text-sm text-gray-500">
+            <strong>Published:</strong> {new Date(post.publishedDate).toLocaleDateString() || "N/A"}
+          </p>
+        </div>
       </div>
       <div className="flex justify-center mt-4">
         <button

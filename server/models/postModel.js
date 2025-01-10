@@ -15,7 +15,7 @@ const PostSchema = new mongoose.Schema(
             type: [String],
             default: [],
         },
-        image : {
+        imageUrl : {
             type : String,
             default: null,
         },
@@ -23,6 +23,10 @@ const PostSchema = new mongoose.Schema(
             type : mongoose.Schema.Types.ObjectId,
             ref: "User",
             required: true
+        },
+        publishedDate: {
+            type: Date,
+            default: Date.now
         }
     } , {timestamps: true}
 )
