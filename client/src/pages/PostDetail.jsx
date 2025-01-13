@@ -94,11 +94,13 @@ const PostDetail = () => {
       <div className="bg-white rounded-lg shadow-md p-6">
         <p className="text-gray-700">{post.content}</p>
         {post.imageUrl && (
+        <div className="flex justify-center items-center max-w-lg max-h-64 mx-auto mt-4 overflow-hidden">
           <img
             src={`http://localhost:5000/${post.imageUrl}`}
             alt={post.title}
-            className="w-full h-auto mt-4"
+            className="w-full h-auto object-contain"
           />
+        </div>
         )}
         {/* <p className="text-sm text-gray-500 mt-4">By: {post.authorName}</p>
         <p className="text-sm text-gray-500">{post.publishedDate}</p> */}
