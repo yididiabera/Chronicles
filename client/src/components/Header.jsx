@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Button,
   Navbar,
@@ -7,11 +7,15 @@ import {
   NavbarToggle,
 } from "flowbite-react";
 import { Link, useLocation } from "react-router-dom";
+import AuthContext from "../context/AuthContext";
 
 const Header = () => {
   const path = useLocation().pathname;
+  const { isLoggedIn, logout } = useContext(AuthContext);
+
   return (
     <Navbar className="border-b-2">
+      {/* Brand Logo */}
       <Link
         to="/"
         className="self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white"
@@ -21,16 +25,39 @@ const Header = () => {
         </span>
       </Link>
 
+      {/* Right Section */}
       <div className="flex gap-2 md:order-2">
-        <Link to="/login">
-          <Button gradientDuoTone="purpleToBlue">Log In</Button>
-        </Link>
-        <Link to="/signup">
-          <Button gradientDuoTone="purpleToPink">Sign Up</Button>
-        </Link>
+        {isLoggedIn ? (
+          <>
+            {/* Dashboard Link */}
+            <Link to="/dashboard">
+              <Button gradientDuoTone="purpleToBlue">Dashboard</Button>
+            </Link>
+
+            {/* Logout Button */}
+            <Button
+              gradientDuoTone="redToYellow"
+              onClick={logout}
+              className="text-white"
+            >
+              Logout
+            </Button>
+          </>
+        ) : (
+          <>
+            {/* Login and Sign Up Buttons */}
+            <Link to="/login">
+              <Button gradientDuoTone="purpleToBlue">Log In</Button>
+            </Link>
+            <Link to="/signup">
+              <Button gradientDuoTone="purpleToPink">Sign Up</Button>
+            </Link>
+          </>
+        )}
         <NavbarToggle />
       </div>
 
+      {/* Navbar Collapse */}
       <NavbarCollapse>
         <NavbarLink active={path === "/"} as={"div"}>
           <Link to="/">Home</Link>
