@@ -28,7 +28,7 @@ export default function SignUp() {
       setErrorMessage(null);
 
       console.log('Sending request to /api/auth/signup:', formData);
-      const res = await fetch('/api/auth/signup', { // Update to correct backend URL
+      const res = await fetch('http://localhost:5000/api/auth/signup', { // Update to correct backend URL
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -60,7 +60,7 @@ export default function SignUp() {
             </span>
           </Link>
           <p className="text-sm mt-5">
-            This is a demo project. You can sign up with your email and password.
+            You can sign up with your email and password.
           </p>
         </div>
 
