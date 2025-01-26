@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 // CommentSection component
 const CommentSection = ({ postId }) => {
@@ -51,8 +52,9 @@ const CommentSection = ({ postId }) => {
       const addedComment = await response.json();
       setComments([...comments, addedComment]);
       setNewComment('');
+      toast.success('Comment added successfully!');
     } catch (err) {
-      alert(err.message);
+    toast.error('Error: ' + err.message);
     }
   };
 
@@ -68,8 +70,9 @@ const CommentSection = ({ postId }) => {
       }
 
       setComments(comments.filter((comment) => comment._id !== commentId));
+      toast.success('Comment deleted successfully!');
     } catch (err) {
-      alert(err.message);
+    toast.error('Error: ' + err.message);
     }
   };
 
@@ -175,8 +178,10 @@ const PostDetail = () => {
       const data = await response.json();
       setPost(data); // Update the post state with the updated data
       setIsEditing(false);
+      toast.success('Post updated successfully!');
     } catch (err) {
       setError(err.message);
+      toast.error('Error updating post: ' + err.message);
     }
   };
 
@@ -193,8 +198,10 @@ const PostDetail = () => {
       }
 
       navigate('/');
+      toast.success('Post deleted successfully!');
     } catch (err) {
       setError(err.message);
+      toast.error('Error deleting post: ' + err.message);
     }
   };
 

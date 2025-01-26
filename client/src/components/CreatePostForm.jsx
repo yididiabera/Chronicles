@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 
 const CreatePostForm = () => {
   const [title, setTitle] = useState('');
@@ -36,6 +37,7 @@ const CreatePostForm = () => {
 
       const data = await response.json();
       console.log('Post created successfully:', data);
+      toast.success('Post created successfully!');
 
       // Reset form
       setTitle('');
