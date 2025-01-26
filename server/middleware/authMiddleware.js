@@ -11,6 +11,9 @@ export const verifyToken = (req, res, next) => {
     req.headers.authorization?.split(" ")[1]; // Token in Authorization header
 
   console.log(`Access token: ${token}`);
+  
+  console.log("Cookies:", req.cookies);
+  console.log("Authorization Header:", req.headers.authorization);
 
   if (!token) {
     console.error("Access token is missing.");

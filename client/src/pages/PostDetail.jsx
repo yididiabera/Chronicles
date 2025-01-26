@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const PostDetail = () => {
   const { id } = useParams();
@@ -7,13 +7,16 @@ const PostDetail = () => {
   const [post, setPost] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [isEditing, setIsEditing] = useState(false);
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
 
   useEffect(() => {
     const fetchPost = async () => {
       try {
         const response = await fetch(`http://localhost:5000/api/posts/${id}`, {
-          method: "GET",
-          credentials: "include",
+          method: 'GET',
+          credentials: 'include', // Cookies included
         });
 
         if (!response.ok) {
@@ -22,6 +25,8 @@ const PostDetail = () => {
 
         const data = await response.json();
         setPost(data);
+        setTitle(data.title);
+        setContent(data.content);
         setLoading(false);
       } catch (err) {
         setError(err.message);
@@ -32,54 +37,49 @@ const PostDetail = () => {
     fetchPost();
   }, [id]);
 
-  const handleDeletePost = async () => {
-    const authToken = localStorage.getItem("authToken");
-    if (!authToken) {
-      setError("Access token is missing.");
-      return;
-    }
+  const handleEditToggle = () => {
+    setIsEditing(!isEditing);
+  };
+
+  const handleUpdatePost = async (e) => {
+    e.preventDefault();
+
+    const updatedPost = { title, content };
 
     try {
-      let response = await fetch(`http://localhost:5000/api/posts/${id}`, {
-        method: "DELETE",
-        credentials: "include",
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
+      const response = await fetch(`http://localhost:5000/api/posts/${id}`, {
+        method: 'PUT',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updatedPost),
       });
-
-      if (response.status === 401) {
-        const refreshToken = localStorage.getItem("refreshToken");
-        const refreshResponse = await fetch(
-          "http://localhost:5000/api/auth/refresh-token",
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ refreshToken }),
-          }
-        );
-
-        if (!refreshResponse.ok) {
-          throw new Error("Failed to refresh token");
-        }
-
-        const refreshData = await refreshResponse.json();
-        localStorage.setItem("authToken", refreshData.accessToken);
-
-        response = await fetch(`http://localhost:5000/api/posts/${id}`, {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${refreshData.accessToken}`,
-          },
-        });
-      }
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => null);
-        throw new Error(errorData?.message || "Failed to delete post");
+        throw new Error(errorData?.message || 'Failed to update post');
       }
 
-      navigate("/");
+      const data = await response.json();
+      setPost(data);
+      setIsEditing(false);
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  const handleDeletePost = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/posts/${id}`, {
+        method: 'DELETE',
+        credentials: 'include',
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => null);
+        throw new Error(errorData?.message || 'Failed to delete post');
+      }
+
+      navigate('/');
     } catch (err) {
       setError(err.message);
     }
@@ -94,16 +94,14 @@ const PostDetail = () => {
       <div className="bg-white rounded-lg shadow-md p-6">
         <p className="text-gray-700">{post.content}</p>
         {post.imageUrl && (
-        <div className="flex justify-center items-center max-w-lg max-h-64 mx-auto mt-4 overflow-hidden">
-          <img
-            src={`http://localhost:5000/${post.imageUrl}`}
-            alt={post.title}
-            className="w-full h-auto object-contain"
-          />
-        </div>
+          <div className="flex justify-center items-center max-w-lg max-h-64 mx-auto mt-4 overflow-hidden">
+            <img
+              src={`http://localhost:5000/${post.imageUrl}`}
+              alt={post.title}
+              className="w-full h-auto object-contain"
+            />
+          </div>
         )}
-        {/* <p className="text-sm text-gray-500 mt-4">By: {post.authorName}</p>
-        <p className="text-sm text-gray-500">{post.publishedDate}</p> */}
         <div className="mt-4">
           <p className="text-sm text-gray-500">
             <strong>Author:</strong> {post.authorName || "Unknown"} ({post.authorEmail || "N/A"})
@@ -113,19 +111,64 @@ const PostDetail = () => {
           </p>
         </div>
       </div>
+
       <div className="flex justify-center mt-4">
-        <button
-          onClick={() => navigate(`/post-editor/${id}`)}
-          className="bg-blue-500 text-white px-4 py-2 rounded mr-2"
-        >
-          Edit Post
-        </button>
-        <button
-          onClick={handleDeletePost}
-          className="bg-red-500 text-white px-4 py-2 rounded"
-        >
-          Delete Post
-        </button>
+        {isEditing ? (
+          <form onSubmit={handleUpdatePost} className="w-full max-w-lg">
+            <div className="mb-4">
+              <label htmlFor="title" className="block text-gray-700 text-sm font-bold mb-2">Title</label>
+              <input
+                type="text"
+                id="title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="content" className="block text-gray-700 text-sm font-bold mb-2">Content</label>
+              <textarea
+                id="content"
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                rows="5"
+                required
+              />
+            </div>
+            <div className="flex items-center justify-between">
+              <button
+                type="submit"
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              >
+                Save Changes
+              </button>
+              <button
+                type="button"
+                onClick={handleEditToggle}
+                className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        ) : (
+          <>
+            <button
+              onClick={handleEditToggle}
+              className="bg-blue-500 text-white px-4 py-2 rounded mr-2"
+            >
+              Edit Post
+            </button>
+            <button
+              onClick={handleDeletePost}
+              className="bg-red-500 text-white px-4 py-2 rounded"
+            >
+              Delete Post
+            </button>
+          </>
+        )}
       </div>
     </div>
   );

@@ -73,6 +73,7 @@ export const login = async (req, res, next) => {
       { expiresIn: '7d' } // Token expiration
     );
 
+    console.log("Set-Cookie Header:", token)
     // Exclude sensitive fields from the response
     const { password: _, ...userDetails } = user._doc;
 
@@ -82,7 +83,7 @@ export const login = async (req, res, next) => {
       .cookie('access_token', token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production', // Secure cookie for production
-        sameSite: 'strict', // Prevent CSRF attacks
+        sameSite: 'None', // Prevent CSRF attacks
       })
       .json({
         message: 'Login successful.',

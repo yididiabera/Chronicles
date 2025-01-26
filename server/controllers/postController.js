@@ -1,5 +1,6 @@
 import Post from '../models/postModel.js'
 import multer from 'multer'
+import mongoose from 'mongoose';
 
 export const createPost = async(req, res, next) => {
   //console.log("Request Body:", req.body);
@@ -72,6 +73,11 @@ export const getPostById = async(req, res, next) => {
 export const updatePostById = async (req, res, next) => {
     try {
         const {id} = req.params;
+
+        // Convert the author field to ObjectId if it's present in the request body
+    //if (req.body.author) {
+      //req.body.author = mongoose.Types.ObjectId(req.body.author);
+    //}
 
         const updatedPost = await Post.findByIdAndUpdate(
             id, 

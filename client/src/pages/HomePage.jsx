@@ -21,11 +21,11 @@ const Homepage = () => {
         }
 
         const data = await response.json();
-        console.log('Fetched data:', data); // Debugging
+        //console.log('Fetched data:', data); // Debugging
         setPosts(data);
         setLoading(false);
       } catch (err) {
-        console.error('Fetch error:', err); // Debugging
+        //console.error('Fetch error:', err); // Debugging
         setError(err.message);
         setLoading(false);
       }
