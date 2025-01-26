@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
 import postRoutes from "./routes/postRoutes.js";
+import commentRoutes from "./routes/comments.js"
 import cookieParser from "cookie-parser";
 import protect from "./middleware/protect.js";
 import cors from "cors";
@@ -42,6 +43,9 @@ app.use("/api/auth", authRoutes);
 
 // Post routes
 app.use("/api/posts", postRoutes);
+
+// Comment routes
+app.use('/api/comments', commentRoutes);
 
 // Centralized Error-handling middleware
 app.use((err, req, res, next) => {
