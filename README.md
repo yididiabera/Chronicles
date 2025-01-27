@@ -33,6 +33,6 @@ Through this project, I will:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/chronicles.git
+   git clone https://github.com/yididiabera/chronicles.git
    cd chronicles
    ```
