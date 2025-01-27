@@ -54,17 +54,6 @@ export default function SignUp() {
     <div className="min-h-screen flex flex-col justify-center items-center mt-20">
       <div className="flex p-5 max-w-3xl mx-auto flex-col md:flex-row md:items-center gap-5">
         <div className="flex-1">
-          <Link to="/" className="font-bold text-4xl dark:text-white">
-            <span className="px-3 py-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white">
-              {PROJECT_NAME}
-            </span>
-          </Link>
-          <p className="text-sm mt-5">
-            You can sign up with your email and password.
-          </p>
-        </div>
-
-        <div className="flex-1">
           <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
             <div>
               <Label htmlFor="username" value="Your username" />
