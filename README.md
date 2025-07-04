@@ -8,8 +8,7 @@ Chronicles is a simple and elegant blog platform built using the MERN stack (Mon
 - Create, Edit, and Delete Blog Posts: Fully-featured CRUD functionality for blog management.
 - Role-Based Access: Different roles for admins and regular users.
 - Responsive Design: Optimized for mobile and desktop devices.
-- Third-Party API Integration: Use external APIs for added functionality (e.g., image hosting or analytics).
-- Custom Themes: Personalize the look and feel of the app.
+- Third-Party API Integration: Use external APIs for added functionality (e.g, image hosting or analytics)
 
 ## Learning Objectives
 
